@@ -36,7 +36,7 @@ if [[ $TEST_SUITE = "functional" ]]; then
         sh ./vendor/se/selenium-server-standalone/bin/selenium-server-standalone -port 4444 -host 127.0.0.1 \
             -Dwebdriver.firefox.bin=$(which firefox) -trustAllSSLCertificate &> ~/selenium.log &
 
-        ./vendor/bin/mftf build:project --MAGENTO_BASE_URL='http://${MAGENTO_HOST_NAME}/'
+        ./vendor/magento/magento2-functional-testing-framework/bin/mftf build:project --MAGENTO_BASE_URL='http://${MAGENTO_HOST_NAME}/'
         
         cd dev/tests/acceptance
         cp ./.htaccess.sample ./.htaccess
@@ -44,7 +44,7 @@ if [[ $TEST_SUITE = "functional" ]]; then
         sed -e "s?%ADOBE_STOCK_PRIVATE_KEY%?${ADOBE_STOCK_PRIVATE_KEY}?g" --in-place ./.env
         cd ../../..
         
-        ./vendor/bin/mftf generate:test --tests='${TEST_CONFIGURATION}'
+        ./vendor/magento/magento2-functional-testing-framework/bin/mftf generate:test --tests='${TEST_CONFIGURATION}'
 fi
 
 if [[ $TEST_SUITE = "api" ]]; then
