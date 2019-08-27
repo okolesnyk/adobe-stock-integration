@@ -44,7 +44,7 @@ if [[ $TEST_SUITE = "functional" ]]; then
         sed -e "s?%ADOBE_STOCK_PRIVATE_KEY%?${ADOBE_STOCK_PRIVATE_KEY}?g" --in-place ./.env
         cd ../../..
         
-        ./vendor/magento/magento2-functional-testing-framework/bin/mftf generate:test --tests='${TEST_CONFIGURATION}'
+        ./vendor/magento/magento2-functional-testing-framework/bin/mftf generate:test --tests='{"tests":null,"suites":{"AdobeStockIntegrationSuite":[]}}'
 fi
 
 if [[ $TEST_SUITE = "api" ]]; then
