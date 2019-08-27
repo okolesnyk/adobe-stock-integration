@@ -36,16 +36,15 @@ if [[ $TEST_SUITE = "functional" ]]; then
         sh ./vendor/se/selenium-server-standalone/bin/selenium-server-standalone -port 4444 -host 127.0.0.1 \
             -Dwebdriver.firefox.bin=$(which firefox) -trustAllSSLCertificate &> ~/selenium.log &
 
+        ./vendor/bin/mftf build:project --MAGENTO_BASE_URL='http://${MAGENTO_HOST_NAME}/'
+        
         cd dev/tests/acceptance
-
         cp ./.htaccess.sample ./.htaccess
         sed -e "s?%ADOBE_STOCK_API_KEY%?${ADOBE_STOCK_API_KEY}?g" --in-place ./.env
         sed -e "s?%ADOBE_STOCK_PRIVATE_KEY%?${ADOBE_STOCK_PRIVATE_KEY}?g" --in-place ./.env
-
         cd ../../..
-
-        mftf build:project --MAGENTO_BASE_URL='http://${MAGENTO_HOST_NAME}/'
-        mftf generate:test --tests='{"tests":null,"suites":{"AdobeStockIntegrationSuite":[]}}'
+        
+        ./vendor/bin/mftf generate:test --tests='${TEST_CONFIGURATION}'
 fi
 
 if [[ $TEST_SUITE = "api" ]]; then
